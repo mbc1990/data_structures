@@ -29,10 +29,13 @@ class LinkedList {
       temp->next = shared_ptr<Node<T>>(new Node<T>(val));
     }
 
+    // Remove an item
     void remove(int idx) {
       if (idx > size - 1) {
         return;
       }
+
+      size--;
 
       if (idx == 0) {
         head = head->next;
