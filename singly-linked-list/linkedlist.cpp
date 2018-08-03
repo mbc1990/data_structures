@@ -17,6 +17,7 @@ class LinkedList {
   public:
     // Adds to the end of the list
     void append(T val) {
+      size += 1;
       if (head == NULL) {
         head = shared_ptr<Node<T>>(new Node<T>(val));
         return;
@@ -28,6 +29,28 @@ class LinkedList {
       temp->next = shared_ptr<Node<T>>(new Node<T>(val));
     }
 
+    void remove(int idx) {
+      if (idx > size - 1) {
+        return;
+      }
+
+      if (idx == 0) {
+        head = head->next;
+        return;
+      }
+      auto temp = head;
+      int counter = 0;
+      while (counter < idx) {
+        if (counter+1 == idx) {
+          temp->next = temp->next->next;
+          return;
+        } else {
+          temp = temp->next;
+          counter++;
+        }
+      }
+    }
+
     // Prints the list
     void print_list() {
       auto temp = head;
@@ -37,14 +60,22 @@ class LinkedList {
       }
     }
 
+    LinkedList() {
+      size = 0;
+    }
+
   private:
+    int size;
     shared_ptr<Node<T>> head;
 };
 
 int main(int argc, char *argv[]){
-  auto ll = LinkedList<int>();
-  ll.append(4);
-  ll.append(5);
+  auto ll = LinkedList<string>();
+  ll.append("hi");
+  ll.append("hello");
+  ll.append("bye");
+  ll.print_list();
+  ll.remove(1);
   ll.print_list();
   return 0;
 }
